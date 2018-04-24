@@ -88,8 +88,11 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		iff = new JCheckBox("IF");
 		jLabel16 = new javax.swing.JLabel();
 		initModeCB = new javax.swing.JComboBox<>();
+		jLabel17 = new javax.swing.JLabel();
+		depthTF = new javax.swing.JTextField();
 		
 		jLabel16.setText("Init technic");
+		jLabel17.setText("Max depth: ");
 
 		// DEFAULTS VALUES
 		populationSizeTF.setText("100");
@@ -382,7 +385,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 								.addGroup(layout.createSequentialGroup().addGap(8, 8, 8)
 										.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 												.addComponent(jLabel2).addComponent(jLabel3).addComponent(jLabel1)
-												.addComponent(jLabel11).addComponent(jLabel12).addComponent(jLabel14))
+												.addComponent(jLabel11).addComponent(jLabel12).addComponent(jLabel14).addComponent(jLabel17))
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addGroup(layout
 												.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -390,7 +393,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 												.addComponent(populationSizeTF)
 												.addComponent(selectionModeCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE,
 														Short.MAX_VALUE)
-												.addComponent(nTF).addComponent(truncTF).addComponent(tournamentTF)))
+												.addComponent(nTF).addComponent(truncTF).addComponent(tournamentTF).addComponent(depthTF)))
 								.addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -425,6 +428,11 @@ public class MainView extends javax.swing.JFrame implements Observer {
 														javax.swing.GroupLayout.PREFERRED_SIZE))
 										.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 												.addComponent(jLabel11).addComponent(nTF,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+												.addComponent(jLabel17).addComponent(depthTF,
 														javax.swing.GroupLayout.PREFERRED_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -524,6 +532,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JLabel jLabel14;
 	private javax.swing.JLabel jLabel15;
 	private javax.swing.JLabel jLabel16;
+	private javax.swing.JLabel jLabel17;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel5;
@@ -551,6 +560,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JTextField crossoverTF;
 	private javax.swing.JTextField mutationTF;
 	private javax.swing.JTextField eliteTF;
+	private javax.swing.JTextField depthTF;
 	// End of variables declaration//GEN-END:variables
 
 	@Override

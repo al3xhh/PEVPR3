@@ -61,7 +61,7 @@ public class MainControler {
 		Chromosome []chromosomes = new Chromosome[populationSize];
 		
 		for(int i = 0; i < populationSize; i++)
-			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm, heuristic));
+			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm, heuristic), 0, null);
 		
 		Population population = new Population(populationSize, generationNumber, elitism, chromosomes, "min");
 		SelectionAlgorithm selectionAlgorithm = SelectionFactory.getSelectionAlgorithm(selection, truncation, tournamentN);

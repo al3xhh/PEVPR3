@@ -44,9 +44,17 @@ public class Chromosome {
 	 */
 	private MutationAlgorithm _mutation;
 	
-	public Chromosome(MutationAlgorithm mutation) {
+	private int _maxDepth;
+	
+	private String[] _terminations = {"A0", "A1", "D0", "D1", "D2", "D3"};
+	
+	private String[] _functions;
+	
+	public Chromosome(MutationAlgorithm mutation, int maxDepth, String[] functions) {
 		_mutation = mutation;
  		_gens = new char[_length];
+ 		_maxDepth = maxDepth;
+ 		_functions = functions;
 	}
 	
 	public Chromosome() {
@@ -96,7 +104,7 @@ public class Chromosome {
 	 * @return new chromosome.
 	 */
 	public Chromosome getChild() {
-		return new Chromosome(_mutation);
+		return new Chromosome(_mutation, _maxDepth, _functions);
 	}
 	
 	/**
@@ -121,7 +129,7 @@ public class Chromosome {
 	 * Clone the chromosome.
 	 */
 	public Chromosome clone() {
-		Chromosome chromosome = new Chromosome(_mutation);
+		Chromosome chromosome = new Chromosome(_mutation, _maxDepth, _functions);
 		char []gens = new char[_length];
 		
 		chromosome.setAggregateSocore(_aggregateSocore);
