@@ -283,7 +283,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 								0,
 								mutationModeCB.getSelectedItem().toString(), Double.parseDouble(mutationTF.getText()),
 								Integer.parseInt(heuristicTF.getText()),
-								Double.parseDouble(eliteTF.getText()), "", null);
+								Double.parseDouble(eliteTF.getText()), "");
 					} catch (NumberFormatException e1) {
 						JOptionPane.showMessageDialog(null, "Munber format exception", "Error",
 								JOptionPane.ERROR_MESSAGE);

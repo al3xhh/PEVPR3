@@ -44,18 +44,9 @@ public class Chromosome {
 	 */
 	private MutationAlgorithm _mutation;
 	
-	/**
-	 * 
-	 */
-	private LetterFrequency _frequencies;
-	
-	private String _fileContent;
-	
-	public Chromosome(MutationAlgorithm mutation, String fileContent, LetterFrequency letterFrequencies) {
+	public Chromosome(MutationAlgorithm mutation) {
 		_mutation = mutation;
-		_frequencies = letterFrequencies;
-		_fileContent = fileContent;
-		_gens = new char[_length];
+ 		_gens = new char[_length];
 	}
 	
 	public Chromosome() {
@@ -105,7 +96,7 @@ public class Chromosome {
 	 * @return new chromosome.
 	 */
 	public Chromosome getChild() {
-		return new Chromosome(_mutation, _fileContent, _frequencies);
+		return new Chromosome(_mutation);
 	}
 	
 	/**
@@ -114,75 +105,7 @@ public class Chromosome {
 	 * @return chromosome aptitude.
 	 */
 	public double test() {
-		String []exchange = exchange().split(" ");
-		double mono = 0.0, bi = 0.0, tri = 0.0;
-		ArrayList<String> blackList = new ArrayList<>();
-		String aux, aux2;
-		
-		HashMap<String, Double> frequencies1 = _frequencies.getFrequencies1();
-		HashMap<String, Double> frequencies2 = _frequencies.getFrequencies2();
-		HashMap<String, Double> frequencies3 = _frequencies.getFrequencies3();
-		HashMap<String, Double> monoGram = _frequencies.getMonoGram();
-		HashMap<String, Double> biGram = _frequencies.getBiGram();
-		HashMap<String, Double> triGram = _frequencies.getTriGram();
-		
-		blackList = new ArrayList<>();
-		
-		for(String word: exchange) {
-			for(int i = 0; i < word.length() - 1; i++) {
-				aux = decode(String.valueOf(word.substring(i, i + 2).toUpperCase()).toUpperCase());
-				aux2 = String.valueOf(word.substring(i, i + 2).toUpperCase()).toUpperCase();
-				
-				if(!blackList.contains(aux)) {
-					bi += Math.abs((double)biGram.get(aux) * Utils.log(frequencies2.get(aux2), 2));
-					blackList.add(aux);
-				}
-			}
-		}
-		
-		blackList = new ArrayList<>();
-		
-		for(String word: exchange) {
-			for(int i = 0; i < word.length() - 2; i++) {
-				aux = decode(String.valueOf(word.substring(i, i + 3).toUpperCase()).toUpperCase());
-				aux2 = String.valueOf(word.substring(i, i + 3).toUpperCase()).toUpperCase();
-				
-				if(!blackList.contains(aux) && frequencies3.containsKey(aux2) && triGram.containsKey(aux)) {
-					tri += Math.abs((double)triGram.get(aux) * Utils.log(Math.abs(frequencies3.get(aux2)), 2));
-					blackList.add(aux);
-				}
-			}
-		}
-				
-		return ((bi * 0.3) + (tri * 0.7)) / 2;
-	}
-	
-	public String exchange() {
-		String ret = "";
-		
-		for(int i = 0; i < _fileContent.length(); i++) {
-			if(" .,\'\"();-?".indexOf(_fileContent.charAt(i)) < 0)
-				ret += _gens[(int) _fileContent.charAt(i) - 65];
-			else
-				ret += _fileContent.charAt(i);
-		}
-		
-		 return ret;
-	}
-	
-	public String decode(String s) {
-		String ret = "";
-		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		
-		for(int i = 0; i < s.length(); i++) {
-			for(int j = 0; j < _gens.length; j++)
-				if(_gens[j] == s.charAt(i)) {
-					ret += alphabet.charAt(j);
-					break;
-				}
-		}
-		
-		 return ret;
+		return 0.0;
 	}
 	
 	/**
@@ -191,20 +114,19 @@ public class Chromosome {
 	 * @return chromosome phenotype.
 	 */
 	public String getPhenotype() {
-		return exchange();		
+		return "";		
 	}
 
 	/**
 	 * Clone the chromosome.
 	 */
 	public Chromosome clone() {
-		Chromosome chromosome = new Chromosome(_mutation, _fileContent, _frequencies);
+		Chromosome chromosome = new Chromosome(_mutation);
 		char []gens = new char[_length];
 		
 		chromosome.setAggregateSocore(_aggregateSocore);
 		chromosome.setAptitude(_aptitude);
 		chromosome.setScore(_score);
-		chromosome.setFileContent(_fileContent);
 		
 		for(int i = 0; i < _length; i++)
 			gens[i] = _gens[i];
@@ -258,9 +180,5 @@ public class Chromosome {
 
 	public void setAggregateSocore(double aggregateSocore) {
 		_aggregateSocore = aggregateSocore;
-	}
-	
-	public void setFileContent(String fileContent) {
-		_fileContent = fileContent;
 	}
 }

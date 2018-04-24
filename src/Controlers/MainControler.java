@@ -4,7 +4,6 @@ import Crossover.CrossOverFactory;
 import Crossover.CrossoverAlgorithm;
 import Models.Chromosome;
 import Models.GeneticAlgorithm;
-import Models.LetterFrequency;
 import Models.Population;
 import Mutation.MutationAlgorithm;
 import Mutation.MutationFactory;
@@ -57,12 +56,12 @@ public class MainControler {
 	 * @param truncation percentage of truncation selection.
 	 */
 	public void run(int populationSize, int generationNumber, String selection, double truncation, int tournamentN, String crossAlgorithm, double cross, int k,
-					String mutationAlgorithm, double mutation, int heuristic, double elitism, String fileContent, LetterFrequency letterFrequency) {
+					String mutationAlgorithm, double mutation, int heuristic, double elitism, String fileContent) {
 		
 		Chromosome []chromosomes = new Chromosome[populationSize];
 		
 		for(int i = 0; i < populationSize; i++)
-			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm, heuristic), fileContent, letterFrequency);
+			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm, heuristic));
 		
 		Population population = new Population(populationSize, generationNumber, elitism, chromosomes, "min");
 		SelectionAlgorithm selectionAlgorithm = SelectionFactory.getSelectionAlgorithm(selection, truncation, tournamentN);
