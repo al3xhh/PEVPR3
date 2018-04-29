@@ -46,9 +46,9 @@ public class Chromosome {
 	
 	private int _maxDepth;
 	
-	private String[] _terminations = {"A0", "A1", "D0", "D1", "D2", "D3"};
+	private static String[] _terminals = {"A0", "A1", "D0", "D1", "D2", "D3"};
 	
-	private String[] _functions;
+	private static String[] _functions = {"AND", "OR", "NOT", "IF"};
 	
 	public Chromosome(MutationAlgorithm mutation, int maxDepth, String[] functions) {
 		_mutation = mutation;
@@ -57,6 +57,14 @@ public class Chromosome {
  		_functions = functions;
 	}
 	
+	public int get_maxDepth() {
+		return _maxDepth;
+	}
+
+	public void set_maxDepth(int _maxDepth) {
+		this._maxDepth = _maxDepth;
+	}
+
 	public Chromosome() {
 	}
 	
@@ -144,6 +152,47 @@ public class Chromosome {
 		return chromosome;
 	}
 	
+	public Tree getRandomTerminalNode(){
+		//TODO
+		return null;
+	}
+	
+	public Tree getRandomFuncionalNode(){
+		//TODO
+		return null;
+	}
+	
+	public Tree getRandomNode(){
+		
+		return null;
+	}
+	
+	public String getRandomFunction(){
+		
+		return _functions[new Random().nextInt(_functions.length)];
+	}
+	
+	public String getRandomTerminal(){
+		
+		return _terminals[new Random().nextInt(_terminals.length)];
+	}
+	
+	public static String[] get_terminals() {
+		return _terminals;
+	}
+
+	public static void set_terminals(String[] _terminals) {
+		Chromosome._terminals = _terminals;
+	}
+
+	public static String[] get_functions() {
+		return _functions;
+	}
+
+	public static void set_functions(String[] _functions) {
+		Chromosome._functions = _functions;
+	}
+
 	//GETTERS//
 	public char[] getGens() {
 		return _gens;
