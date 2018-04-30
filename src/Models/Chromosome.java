@@ -17,7 +17,7 @@ public class Chromosome {
 	/**
 	 * Boolean matrix, in each position it has an array with alleles.
 	 */
-	private char[] _gens;
+	private Tree _gens;
 	
 	/**
 	 *  Integer array with the length of each alleles array.
@@ -46,11 +46,23 @@ public class Chromosome {
 	
 	private int _maxDepth;
 	
-	private static String[] _terminals = {"A0", "A1", "D0", "D1", "D2", "D3"};
+	private static ArrayList<String> _terminals = new ArrayList<String>() {{
+		add("A0");
+		add("A1");
+		add("D0");
+		add("D1");
+		add("D2");
+		add("D3");
+	}};
 	
-	private static String[] _functions = {"AND", "OR", "NOT", "IF"};
+	private static ArrayList<String> _functions = new ArrayList<String>() {{
+		add("AND");
+		add("OR");
+		add("NOT");
+		add("IF");
+	}};
 	
-	public Chromosome(MutationAlgorithm mutation, int maxDepth, String[] functions) {
+	public Chromosome(MutationAlgorithm mutation, int maxDepth, ArrayList<String>functions) {
 		_mutation = mutation;
  		_gens = new char[_length];
  		_maxDepth = maxDepth;
@@ -153,48 +165,85 @@ public class Chromosome {
 	}
 	
 	public Tree getRandomTerminalNode(){
-		//TODO
-		return null;
+		ArrayList<Tree> nodes = new ArrayList<Tree>();
+		Tree randomNode = null;
+		
+		getInOrder(nodes, _gens);
+		
+		randomNode = nodes.get(new Random().nextInt(nodes.size()));
+		
+		while (!_terminals.contains(randomNode.get_value()))
+			randomNode = nodes.get(new Random().nextInt(nodes.size()));
+		
+		
+		return randomNode;
 	}
 	
 	public Tree getRandomFuncionalNode(){
-		//TODO
-		return null;
+		ArrayList<Tree> nodes = new ArrayList<Tree>();
+		Tree randomNode = null;
+		
+		getInOrder(nodes, _gens);
+		
+		randomNode = nodes.get(new Random().nextInt(nodes.size()));
+		
+		while (!_functions.contains(randomNode.get_value()))
+			randomNode = nodes.get(new Random().nextInt(nodes.size()));
+		
+		return randomNode;
 	}
 	
 	public Tree getRandomNode(){
+		ArrayList<Tree> nodes = new ArrayList<Tree>();
+		Tree randomNode = null;
 		
-		return null;
+		getInOrder(nodes, _gens);
+		
+		randomNode = nodes.get(new Random().nextInt(nodes.size()));
+
+		
+		return randomNode;
+	}
+	
+	private void getInOrder(ArrayList<Tree> inOrder, Tree tree){
+		if (tree.is_isLeaf())
+			inOrder.add(tree);
+		else {
+			//Added the left and center soon
+			if (tree.get_leftChild() != null)
+				getInOrder(inOrder, tree.get_leftChild());
+			if (tree.get_centerChild() != null)
+				getInOrder(inOrder, tree.get_centerChild());
+			
+			//added the current father
+			inOrder.add(tree);
+			
+			//added de rigth son
+			if (tree.get_rightChild() != null)
+				getInOrder(inOrder, tree.get_rightChild());
+		}
 	}
 	
 	public String getRandomFunction(){
 		
-		return _functions[new Random().nextInt(_functions.length)];
+		return _functions.get(new Random().nextInt(_functions.size()));
 	}
 	
 	public String getRandomTerminal(){
 		
-		return _terminals[new Random().nextInt(_terminals.length)];
+		return _terminals.get(new Random().nextInt(_terminals.size()));
 	}
 	
-	public static String[] get_terminals() {
+	public static ArrayList<String> get_terminals() {
 		return _terminals;
 	}
 
-	public static void set_terminals(String[] _terminals) {
-		Chromosome._terminals = _terminals;
-	}
-
-	public static String[] get_functions() {
+	public static ArrayList<String> get_functions() {
 		return _functions;
 	}
 
-	public static void set_functions(String[] _functions) {
-		Chromosome._functions = _functions;
-	}
-
 	//GETTERS//
-	public char[] getGens() {
+	public Tree getGens() {
 		return _gens;
 	}
 	
@@ -223,7 +272,7 @@ public class Chromosome {
 		_gens[i] = b;
 	}
 
-	public void setGens(char[] gens) {
+	public void setGens(Tree gens) {
 		_gens = gens;
 	}
 
