@@ -1,5 +1,7 @@
 package Controlers;
 
+import java.util.ArrayList;
+
 import Crossover.CrossOverFactory;
 import Crossover.CrossoverAlgorithm;
 import Models.Chromosome;
@@ -55,12 +57,12 @@ public class MainControler {
 	 * @param n iterations number for problem 5.
 	 * @param truncation percentage of truncation selection.
 	 */
-	public void run(int populationSize, int generationNumber, String selection, double truncation, int tournamentN, String crossAlgorithm, double cross, int k,
-					String mutationAlgorithm, double mutation, int heuristic, double elitism, String fileContent) {
+	public void run(int populationSize, int generationNumber, String selection, int maxDepth, double truncation, int tournamentN, double cross, String initTechnic, 
+					String mutationAlgorithm, double mutation, String mutationInitTechnic, double elitism, ArrayList<String> operators) {
 		
 		Chromosome []chromosomes = new Chromosome[populationSize];
 		
-		for(int i = 0; i < populationSize; i++)
+		/*for(int i = 0; i < populationSize; i++)
 			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm, heuristic), 0, null);
 		
 		Population population = new Population(populationSize, generationNumber, elitism, chromosomes, "min");
@@ -74,6 +76,6 @@ public class MainControler {
 		_ga.setCrossOverAlgorithm(crossoverAlgorithm);
 		_ga.setCross(cross);
 		_ga.setMutation(mutation);
-		_ga.run();
+		_ga.run();*/
 	}
 }

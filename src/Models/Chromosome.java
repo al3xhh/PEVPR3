@@ -64,7 +64,7 @@ public class Chromosome {
 	
 	public Chromosome(MutationAlgorithm mutation, int maxDepth, ArrayList<String>functions) {
 		_mutation = mutation;
- 		_gens = new char[_length];
+ 		//_gens = new char[_length];
  		_maxDepth = maxDepth;
  		_functions = functions;
 	}
@@ -90,7 +90,7 @@ public class Chromosome {
 		for (int i = 0; i < _length; i++) {
 			int index = r.nextInt(alphabet.length());
 			
-			_gens[i] = alphabet.charAt(index);
+			//_gens[i] = alphabet.charAt(index);
 			alphabet = alphabet.replace(String.valueOf(alphabet.charAt(index)), "");
 		}
 	}
@@ -101,8 +101,8 @@ public class Chromosome {
 	 * @param mutation mutation %.
 	 */
 	public void mutation(double mutation) {
-		if(Math.random() < mutation)
-			_mutation.mutation(this);
+		//if(Math.random() < mutation)
+			//_mutation.mutation(this);
 	}
 	
 		
@@ -112,8 +112,8 @@ public class Chromosome {
 	public char[] cloneGens() {
 		char []ret = new char[_length];
 		
-		for(int i = 0; i < _length; i++)
-			ret[i] = _gens[i];
+		//for(int i = 0; i < _length; i++)
+			//ret[i] = _gens[i];
 		
 		return ret;
 	}
@@ -156,10 +156,10 @@ public class Chromosome {
 		chromosome.setAptitude(_aptitude);
 		chromosome.setScore(_score);
 		
-		for(int i = 0; i < _length; i++)
-			gens[i] = _gens[i];
+		//for(int i = 0; i < _length; i++)
+		//	gens[i] = _gens[i];
 		
-		chromosome.setGens(gens);
+		//chromosome.setGens(gens);
 		
 		return chromosome;
 	}
@@ -248,7 +248,8 @@ public class Chromosome {
 	}
 	
 	public char getGen(int i) {
-		return _gens[i];
+		//return _gens[i];
+		return ' ';
 	}
 	
 	public int getLength() {
@@ -269,7 +270,7 @@ public class Chromosome {
 	
 	//SETTERS//
 	public void setGen(int i, char b) {
-		_gens[i] = b;
+		//_gens[i] = b;
 	}
 
 	public void setGens(Tree gens) {

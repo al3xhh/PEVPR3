@@ -8,6 +8,7 @@ package Views;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -47,7 +48,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private void initComponents() {
 
 		this.setTitle("Practise 3");
-		this.setPreferredSize(new Dimension(1200, 880));
+		this.setPreferredSize(new Dimension(1600, 1500));
 		this.setResizable(false);
 
 		jLabel1 = new javax.swing.JLabel();
@@ -74,6 +75,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		jLabel7 = new javax.swing.JLabel();
 		mutationModeCB = new javax.swing.JComboBox<>();
 		jPanel3 = new javax.swing.JPanel();
+		jPanel5 = new javax.swing.JPanel();
 		eliteTF = new javax.swing.JTextField();
 		jLabel8 = new javax.swing.JLabel();
 		resetFieldsB = new javax.swing.JButton();
@@ -88,8 +90,11 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		iff = new JCheckBox("IF");
 		jLabel16 = new javax.swing.JLabel();
 		initModeCB = new javax.swing.JComboBox<>();
+		mutationInitModeCB  = new javax.swing.JComboBox<>();
 		jLabel17 = new javax.swing.JLabel();
 		depthTF = new javax.swing.JTextField();
+		jLabel18 = new javax.swing.JLabel();
+		operators = new ArrayList<>();
 		
 		jLabel16.setText("Init technic");
 		jLabel17.setText("Max depth: ");
@@ -127,6 +132,10 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		jLabel15.setText("N: ");
 		jLabel15.setVisible(false);
 		heuristicTF.setVisible(false);
+		
+		jLabel18.setText("Init technic: ");
+		jLabel18.setVisible(false);
+		mutationInitModeCB.setVisible(false);
 
 		jLabel2.setText("Generation number:");
 
@@ -188,17 +197,21 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		
 		initModeCB.setModel(new javax.swing.DefaultComboBoxModel<>(
 				new String[] { "Full", "Grow", "Ramped & Half" }));
+		
+		mutationInitModeCB.setModel(new javax.swing.DefaultComboBoxModel<>(
+				new String[] { "Full", "Grow", "Ramped & Half" }));
 
 		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
 		jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanel2Layout.createSequentialGroup().addContainerGap()
 						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jLabel6).addComponent(jLabel7).addComponent(jLabel15))
+								.addComponent(jLabel6).addComponent(jLabel7).addComponent(jLabel15).addComponent(jLabel18))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-								.addComponent(mutationModeCB, 0, 120, Short.MAX_VALUE).addComponent(mutationTF).addComponent(heuristicTF))
+								.addComponent(mutationModeCB, 0, 120, Short.MAX_VALUE).addComponent(mutationTF)
+								.addComponent(heuristicTF).addComponent(mutationInitModeCB, 0, 120, Short.MAX_VALUE))
 						.addContainerGap()));
 		jPanel2Layout
 				.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,10 +231,16 @@ public class MainView extends javax.swing.JFrame implements Observer {
 												javax.swing.GroupLayout.PREFERRED_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel18).addComponent(mutationInitModeCB,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addContainerGap()));
 
 		jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Elite"));
-		jPanel3.setToolTipText("");
+		jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Operators"));
 
 		eliteTF.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,6 +266,16 @@ public class MainView extends javax.swing.JFrame implements Observer {
 								.addComponent(jLabel8).addComponent(eliteTF, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE))));
+		
+		javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+		jPanel5.setLayout(jPanel5Layout);
+		jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel5Layout.createSequentialGroup().addContainerGap().addComponent(and).addComponent(or).addComponent(not).addComponent(iff)));
+		jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+						.addGap(0, 0, Short.MAX_VALUE)
+						.addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(and).addComponent(or).addComponent(not).addComponent(iff))));
 
 		resetFieldsB.setText("Reset fields");
 		resetFieldsB.addActionListener(new ActionListener() {
@@ -272,7 +301,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				if (populationSizeTF.getText().equals("") || generationNumberTF.getText().equals("")
 						|| crossoverTF.getText().equals("") || mutationTF.getText().equals("")
-						|| eliteTF.getText().equals("")) {
+						|| eliteTF.getText().equals("") || depthTF.getText().equals("") || operators.size() == 0) {
 					JOptionPane.showMessageDialog(null, "You must introduce all the paramaters", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
@@ -280,13 +309,16 @@ public class MainView extends javax.swing.JFrame implements Observer {
 						controller.run(Integer.parseInt(populationSizeTF.getText()),
 								Integer.parseInt(generationNumberTF.getText()),
 								selectionModeCB.getSelectedItem().toString(),
+								Integer.parseInt(depthTF.getText()),
 								Double.parseDouble(truncTF.getText().toString()),
 								Integer.parseInt(tournamentTF.getText().toString()),
-								"", Double.parseDouble(crossoverTF.getText()),
-								0,
-								mutationModeCB.getSelectedItem().toString(), Double.parseDouble(mutationTF.getText()),
-								Integer.parseInt(heuristicTF.getText()),
-								Double.parseDouble(eliteTF.getText()), "");
+								Double.parseDouble(crossoverTF.getText()),
+								initModeCB.getSelectedItem().toString(),
+								mutationModeCB.getSelectedItem().toString(), 
+								Double.parseDouble(mutationTF.getText()),
+								mutationInitModeCB.getSelectedItem().toString(),
+								Double.parseDouble(eliteTF.getText()),
+								operators);
 					} catch (NumberFormatException e1) {
 						JOptionPane.showMessageDialog(null, "Munber format exception", "Error",
 								JOptionPane.ERROR_MESSAGE);
@@ -330,6 +362,58 @@ public class MainView extends javax.swing.JFrame implements Observer {
 					jLabel15.setVisible(false);
 					heuristicTF.setVisible(false);
 				}
+				
+				if (mutationModeCB.getSelectedItem().toString().equals("Tree")) {
+					jLabel18.setVisible(true);
+					mutationInitModeCB.setVisible(true);
+				} else {
+					jLabel18.setVisible(false);
+					mutationInitModeCB.setVisible(false);
+				}
+			}
+		});
+		
+		and.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(and.isSelected())
+					operators.add("AND");
+				else
+					operators.remove("AND");
+			}
+		});
+		
+		or.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(and.isSelected())
+					operators.add("OR");
+				else
+					operators.remove("OR");
+			}
+		});
+		
+		not.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(and.isSelected())
+					operators.add("NOT");
+				else
+					operators.remove("NOT");
+			}
+		});
+		
+		iff.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(and.isSelected())
+					operators.add("IFF");
+				else
+					operators.remove("IFF");
 			}
 		});
 
@@ -380,6 +464,10 @@ public class MainView extends javax.swing.JFrame implements Observer {
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(
 										jPanel3, javax.swing.GroupLayout.Alignment.TRAILING,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+										Short.MAX_VALUE)
+								.addComponent(
+										jPanel5, javax.swing.GroupLayout.Alignment.TRAILING,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE)
 								.addGroup(layout.createSequentialGroup().addGap(8, 8, 8)
@@ -458,6 +546,9 @@ public class MainView extends javax.swing.JFrame implements Observer {
 												javax.swing.GroupLayout.PREFERRED_SIZE)
 										.addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addComponent(chartP, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -526,6 +617,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JComboBox<String> selectionModeCB;
 	private javax.swing.JComboBox<String> mutationModeCB;
 	private javax.swing.JComboBox<String> initModeCB;
+	private javax.swing.JComboBox<String> mutationInitModeCB;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel11;
 	private javax.swing.JLabel jLabel12;
@@ -533,6 +625,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JLabel jLabel15;
 	private javax.swing.JLabel jLabel16;
 	private javax.swing.JLabel jLabel17;
+	private javax.swing.JLabel jLabel18;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel5;
@@ -543,6 +636,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JPanel jPanel4;
 	private javax.swing.JPanel jPanel2;
 	private javax.swing.JPanel jPanel3;
+	private javax.swing.JPanel jPanel5;
 	private javax.swing.JCheckBox and;
 	private javax.swing.JCheckBox or;
 	private javax.swing.JCheckBox not;
@@ -561,6 +655,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JTextField mutationTF;
 	private javax.swing.JTextField eliteTF;
 	private javax.swing.JTextField depthTF;
+	private ArrayList<String> operators;
 	// End of variables declaration//GEN-END:variables
 
 	@Override
@@ -570,8 +665,8 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		String phenotype = result.getPhenotype();
 		String key = "";
 		
-		for(char c: result.getGens())
-			key += c;
+		/*for(char c: result.getGens())
+			key += c;*/
 		
 		System.out.println("KEY: " + key);
 		

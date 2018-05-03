@@ -19,8 +19,6 @@ public class TreeMutation implements MutationAlgorithm {
 		else if (node.get_position() == 1)
 			father.set_centerChild(initTechnic.init(chromosome.get_maxDepth() - node.get_depth(), chromosome.get_terminals(), chromosome.get_functions()));
 		else 
-			father.set_rightChild(initTechnic.init(chromosome.get_maxDepth() - node.get_depth(), chromosome.get_terminals(), chromosome.get_functions()));
-		
+			father.set_rightChild(initTechnic.init(chromosome.get_maxDepth() - node.get_depth(), chromosome.get_terminals(), chromosome.get_functions()));	
 	}
-
 }
