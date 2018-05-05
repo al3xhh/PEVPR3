@@ -6,5 +6,5 @@ import Models.Tree;
 
 public interface InitTechnic {
 	
-	public Tree init(int maxDepth, ArrayList<String> arrayList, ArrayList<String> arrayList2);
+	public Tree init(int maxDepth, ArrayList<String> terminals, ArrayList<String> functions);
 }

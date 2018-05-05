@@ -12,7 +12,7 @@ public class Tree {
 	private boolean _isLeaf;
 	private int _nodesNumber;
 	private int _position; //-1 root, 0 left, 1 center, 2 right
-	private int _symbolPos;
+	//private int _symbolPos;
 	
 	public Tree(Tree father, int depth, boolean isRoot, boolean isLeaf, int position) {
 		_father = father;
@@ -102,11 +102,4 @@ public class Tree {
 		this._position = _position;
 	}
 
-	public int get_symbolPos() {
-		return _symbolPos;
-	}
-
-	public void set_symbolPos(int _symbolPos) {
-		this._symbolPos = _symbolPos;
-	}
 }

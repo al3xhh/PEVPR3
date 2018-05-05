@@ -113,7 +113,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		chartP.addLegend("SOUTH");
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setPreferredSize(new java.awt.Dimension(1200, 610));
+		setPreferredSize(new java.awt.Dimension(1600, 750));
 
 		jLabel1.setText("Population size:");
 
@@ -411,9 +411,9 @@ public class MainView extends javax.swing.JFrame implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(and.isSelected())
-					operators.add("IFF");
+					operators.add("IF");
 				else
-					operators.remove("IFF");
+					operators.remove("IF");
 			}
 		});
 

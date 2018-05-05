@@ -3,7 +3,10 @@ package Controlers;
 import java.util.ArrayList;
 
 import Crossover.CrossOverFactory;
+import Crossover.Crossover;
 import Crossover.CrossoverAlgorithm;
+import Init.InitTechnic;
+import Init.InitTechnicFactory;
 import Models.Chromosome;
 import Models.GeneticAlgorithm;
 import Models.Population;
@@ -62,20 +65,18 @@ public class MainControler {
 		
 		Chromosome []chromosomes = new Chromosome[populationSize];
 		
-		/*for(int i = 0; i < populationSize; i++)
-			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm, heuristic), 0, null);
+		for(int i = 0; i < populationSize; i++)
+			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm), maxDepth, operators, InitTechnicFactory.getInitTechnic(initTechnic));
 		
 		Population population = new Population(populationSize, generationNumber, elitism, chromosomes, "min");
 		SelectionAlgorithm selectionAlgorithm = SelectionFactory.getSelectionAlgorithm(selection, truncation, tournamentN);
-		CrossoverAlgorithm crossoverAlgorithm = CrossOverFactory.getCrossoverAlgorithm(crossAlgorithm, k);
 		
-		population.init();
 		_ga.setGenerationNumber(generationNumber);
 		_ga.setPopulation(population);
 		_ga.setSelectionAlgorithm(selectionAlgorithm);
-		_ga.setCrossOverAlgorithm(crossoverAlgorithm);
+		_ga.setCrossOverAlgorithm(new Crossover());
 		_ga.setCross(cross);
 		_ga.setMutation(mutation);
-		_ga.run();*/
+		_ga.run();
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import Init.InitTechnic;
 import Mutation.MutationAlgorithm;
 
 /**
@@ -55,18 +56,16 @@ public class Chromosome {
 		add("D3");
 	}};
 	
-	private static ArrayList<String> _functions = new ArrayList<String>() {{
-		add("AND");
-		add("OR");
-		add("NOT");
-		add("IF");
-	}};
+	private static ArrayList<String> _functions;
 	
-	public Chromosome(MutationAlgorithm mutation, int maxDepth, ArrayList<String>functions) {
+	private static InitTechnic _init;
+	
+	public Chromosome(MutationAlgorithm mutation, int maxDepth, ArrayList<String>functions, InitTechnic init) {
 		_mutation = mutation;
- 		//_gens = new char[_length];
+ 		_gens = init.init(maxDepth, _terminals, _functions);
  		_maxDepth = maxDepth;
  		_functions = functions;
+ 		_init = init;
 	}
 	
 	public int get_maxDepth() {
@@ -79,21 +78,6 @@ public class Chromosome {
 
 	public Chromosome() {
 	}
-	
-	/**
-	 * Initialize chromosome with random values.
-	 */
-	public void init() {
-		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		Random r = new Random();
-		
-		for (int i = 0; i < _length; i++) {
-			int index = r.nextInt(alphabet.length());
-			
-			//_gens[i] = alphabet.charAt(index);
-			alphabet = alphabet.replace(String.valueOf(alphabet.charAt(index)), "");
-		}
-	}
 
 	/**
 	 * Mutate the chromosome.
@@ -101,8 +85,8 @@ public class Chromosome {
 	 * @param mutation mutation %.
 	 */
 	public void mutation(double mutation) {
-		//if(Math.random() < mutation)
-			//_mutation.mutation(this);
+		if(Math.random() < mutation)
+			_mutation.mutation(this, _init);
 	}
 	
 		
@@ -124,7 +108,7 @@ public class Chromosome {
 	 * @return new chromosome.
 	 */
 	public Chromosome getChild() {
-		return new Chromosome(_mutation, _maxDepth, _functions);
+		return new Chromosome(_mutation, _maxDepth, _functions, _init);
 	}
 	
 	/**
@@ -149,19 +133,26 @@ public class Chromosome {
 	 * Clone the chromosome.
 	 */
 	public Chromosome clone() {
-		Chromosome chromosome = new Chromosome(_mutation, _maxDepth, _functions);
-		char []gens = new char[_length];
+		Chromosome chromosome = new Chromosome(_mutation, _maxDepth, _functions, _init);
 		
 		chromosome.setAggregateSocore(_aggregateSocore);
 		chromosome.setAptitude(_aptitude);
 		chromosome.setScore(_score);
-		
-		//for(int i = 0; i < _length; i++)
-		//	gens[i] = _gens[i];
-		
-		//chromosome.setGens(gens);
+		chromosome.setGens(_gens = cloneGen(_gens, null));
 		
 		return chromosome;
+	}
+	
+	public Tree cloneGen(Tree src, Tree father){
+		Tree clone = new Tree(father, src.get_depth(), src.is_isRoot(), src.is_isLeaf(), src.get_position());
+		clone.set_nodesNumber(src.get_nodesNumber());
+		if (!src.is_isLeaf()){
+			clone.set_rightChild(cloneGen(src.get_rightChild(), clone));
+			clone.set_leftChild(cloneGen(src.get_leftChild(), clone));
+			clone.set_centerChild(cloneGen(src.get_centerChild(), clone));
+		}
+		
+		return clone;
 	}
 	
 	public Tree getRandomTerminalNode(){
@@ -209,18 +200,32 @@ public class Chromosome {
 		if (tree.is_isLeaf())
 			inOrder.add(tree);
 		else {
-			//Added the left and center soon
-			if (tree.get_leftChild() != null)
-				getInOrder(inOrder, tree.get_leftChild());
-			if (tree.get_centerChild() != null)
-				getInOrder(inOrder, tree.get_centerChild());
-			
-			//added the current father
-			inOrder.add(tree);
-			
-			//added de rigth son
-			if (tree.get_rightChild() != null)
-				getInOrder(inOrder, tree.get_rightChild());
+			if (!tree.get_value().equals("IF")){
+				//Added the center soon
+				if (tree.get_leftChild() != null)
+					getInOrder(inOrder, tree.get_leftChild());
+				
+				//added the current father
+				inOrder.add(tree);
+				
+				//added de rigth son
+				if (tree.get_rightChild() != null)
+					getInOrder(inOrder, tree.get_rightChild());
+			}
+			else{
+				//added the current father
+				inOrder.add(tree);
+				
+				//Added the left soon
+				if (tree.get_leftChild() != null)
+					getInOrder(inOrder, tree.get_leftChild());
+				//Added the center soon
+				if (tree.get_centerChild() != null)
+					getInOrder(inOrder, tree.get_centerChild());
+				//added de rigth son
+				if (tree.get_rightChild() != null)
+					getInOrder(inOrder, tree.get_rightChild());
+			}
 		}
 	}
 	
@@ -247,11 +252,6 @@ public class Chromosome {
 		return _gens;
 	}
 	
-	public char getGen(int i) {
-		//return _gens[i];
-		return ' ';
-	}
-	
 	public int getLength() {
 		return _length;
 	}
@@ -269,9 +269,6 @@ public class Chromosome {
 	}
 	
 	//SETTERS//
-	public void setGen(int i, char b) {
-		//_gens[i] = b;
-	}
 
 	public void setGens(Tree gens) {
 		_gens = gens;

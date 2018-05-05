@@ -28,7 +28,7 @@ public class Full implements InitTechnic {
 				get(maxDepth, depth + 1, terminations, functions, childL);
 			}
 			
-			if(function.equals("IFF")) {
+			if(function.equals("IF")) {
 				Tree childC = new Tree(node, depth + 1, false, false, 1);
 				get(maxDepth, depth + 1, terminations, functions, childC);
 			}

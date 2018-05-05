@@ -83,10 +83,6 @@ public class Population {
 	/**
 	 * 
 	 */
-	public void init() {
-		for(Chromosome chromosome: _population)
-			chromosome.init();
-	}
 	
 	public int getPopultionSize() {
 		return _popultionSize;
