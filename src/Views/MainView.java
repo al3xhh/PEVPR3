@@ -108,6 +108,10 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		heuristicTF.setText("0");
 		truncTF.setText("0");
 		tournamentTF.setText("5");
+		and.setSelected(true);
+		or.setSelected(true);
+		iff.setSelected(true);
+		not.setSelected(true);
 
 		// define the legend position
 		chartP.addLegend("SOUTH");
@@ -388,7 +392,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(and.isSelected())
+				if(or.isSelected())
 					operators.add("OR");
 				else
 					operators.remove("OR");
@@ -399,7 +403,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(and.isSelected())
+				if(not.isSelected())
 					operators.add("NOT");
 				else
 					operators.remove("NOT");
@@ -410,7 +414,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(and.isSelected())
+				if(iff.isSelected())
 					operators.add("IF");
 				else
 					operators.remove("IF");
