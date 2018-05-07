@@ -661,22 +661,6 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	@Override
 	public void updatePlot(double[] mean, double[] bestGeneration, double[] best, int generations, Chromosome result) {
 		double[] x = new double[generations];
-		StringBuilder ret = new StringBuilder();
-		String phenotype = result.getPhenotype();
-		String key = "";
-		
-		/*for(char c: result.getGens())
-			key += c;*/
-		
-		System.out.println("KEY: " + key);
-		
-		for(int i = 0; i < phenotype.length(); i++) {
-			ret.append(phenotype.charAt(i));
-			
-			if(i % 112 == 0 && i != 0)
-				ret.append("\n");
-		}
-		
 
 		for (int i = 0; i < generations; i++)
 			x[i] = i + 1;
@@ -684,7 +668,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				resultsTA.setText(null);
-				resultsTA.setText(ret.toString());
+				resultsTA.setText(result.getPhenotype());
 				chartP.removeAllPlots();
 				chartP.addLinePlot("Absolute best", x, best);
 				chartP.addLinePlot("Generation best", x, bestGeneration);
