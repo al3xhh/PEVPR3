@@ -19,13 +19,13 @@ public class Full implements InitTechnic {
 	private void get(int maxDepth, int depth, ArrayList<String> terminations, ArrayList<String> functions, Tree node) {
 		if (depth < maxDepth) {
 			String function = functions.get(new Random().nextInt(functions.size()) - 1);
-			Tree childR = new Tree(node, depth + 1, false, false, 2);
+			Tree childL = new Tree(node, depth + 1, false, false, 2);
 			
-			get(maxDepth, depth + 1, terminations, functions, childR);
+			get(maxDepth, depth + 1, terminations, functions, childL);
 			
 			if(!function.equals("NOT")) {
-				Tree childL = new Tree(node, depth + 1, false, false, 0);
-				get(maxDepth, depth + 1, terminations, functions, childL);
+				Tree childR = new Tree(node, depth + 1, false, false, 0);
+				get(maxDepth, depth + 1, terminations, functions, childR);
 			}
 			
 			if(function.equals("IF")) {

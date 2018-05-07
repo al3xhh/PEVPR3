@@ -2,7 +2,6 @@ package Controlers;
 
 import java.util.ArrayList;
 
-import Crossover.CrossOverFactory;
 import Crossover.Crossover;
 import Crossover.CrossoverAlgorithm;
 import Init.InitTechnic;
@@ -68,7 +67,7 @@ public class MainControler {
 		for(int i = 0; i < populationSize; i++)
 			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm), maxDepth, operators, InitTechnicFactory.getInitTechnic(initTechnic));
 		
-		Population population = new Population(populationSize, generationNumber, elitism, chromosomes, "min");
+		Population population = new Population(populationSize, generationNumber, elitism, chromosomes, "max");
 		SelectionAlgorithm selectionAlgorithm = SelectionFactory.getSelectionAlgorithm(selection, truncation, tournamentN);
 		
 		_ga.setGenerationNumber(generationNumber);

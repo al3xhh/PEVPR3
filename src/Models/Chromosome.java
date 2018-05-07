@@ -117,16 +117,77 @@ public class Chromosome {
 	 * @return chromosome aptitude.
 	 */
 	public double test() {
-		return 0.0;
+		Multiplexor mux = new Multiplexor();
+		int hit = 0;
+		
+		for (int i = 0; i < Utils.combinations.length; i++) {
+			if (mux.getOutput(Utils.combinations[i].substring(0, 2), Utils.combinations[i].substring(2, 6)) == getResult(this._gens, Utils.combinations[i]))
+				hit++;
+		}
+		
+		return hit/64;
 	}
 	
+	private boolean getResult(Tree tree, String muxVals){
+		if (tree.is_isLeaf())
+			return getBinaryValue(muxVals, tree.get_value());
+					
+		if (tree.get_value() == "AND")
+			return getResult(tree.get_rightChild(), tree.get_value()) && getResult(tree.get_leftChild(), tree.get_value());
+		else if (tree.get_value() == "OR")
+			return getResult(tree.get_rightChild(), tree.get_value()) || getResult(tree.get_leftChild(), tree.get_value());
+		else if (tree.get_value() == "NOT")
+			return !getResult(tree.get_leftChild(), tree.get_value());
+		else{
+			if (getResult(tree.get_leftChild(), tree.get_value()))
+				return getResult(tree.get_centerChild(), tree.get_value());
+			else
+				return getResult(tree.get_rightChild(), tree.get_value());
+		}
+	}
+	
+	private boolean getBinaryValue(String muxVals, String terminal){
+		if (muxVals == "A0")
+			return terminal.charAt(0) == '0' ? false : true;
+		else if (muxVals == "A1")
+			return terminal.charAt(1) == '0' ? false : true;
+		else if (muxVals == "D0")
+			return terminal.charAt(2) == '0' ? false : true;
+		else if (muxVals == "D1")
+			return terminal.charAt(3) == '0' ? false : true;
+		else if (muxVals == "D2")
+			return terminal.charAt(4) == '0' ? false : true;
+		else 
+			return terminal.charAt(5) == '0' ? false : true;
+	}
 	/**
 	 * Calculate the phenotype.
 	 * 
 	 * @return chromosome phenotype.
 	 */
 	public String getPhenotype() {
-		return "";		
+		String phenotipe = new String();
+		getPhenotype(this._gens, phenotipe);	
+		
+		return phenotipe;
+	}
+	
+	private void getPhenotype(Tree tree, String phenotipe){
+		if (tree.is_isLeaf())
+			phenotipe += " " + tree.get_value() + " ";
+		else{
+			phenotipe += "(" + tree.get_value();
+			
+			getPhenotype(tree.get_leftChild(), phenotipe);
+			
+			if (tree.get_centerChild() != null)
+				getPhenotype(tree.get_centerChild(), phenotipe);
+			if (tree.get_rightChild() != null)
+				getPhenotype(tree.get_centerChild(), phenotipe);
+			
+			phenotipe += ")";
+		}
+		
 	}
 
 	/**
