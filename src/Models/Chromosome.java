@@ -62,10 +62,10 @@ public class Chromosome {
 	
 	public Chromosome(MutationAlgorithm mutation, int maxDepth, ArrayList<String>functions, InitTechnic init) {
 		_mutation = mutation;
- 		_gens = init.init(maxDepth, _terminals, _functions);
- 		_maxDepth = maxDepth;
- 		_functions = functions;
- 		_init = init;
+		_functions = functions;
+		_maxDepth = maxDepth;
+		_init = init;
+ 		_gens = _init.init(_maxDepth, _terminals, _functions);
 	}
 	
 	public int get_maxDepth() {
@@ -133,32 +133,34 @@ public class Chromosome {
 			return getBinaryValue(muxVals, tree.get_value());
 					
 		if (tree.get_value() == "AND")
-			return getResult(tree.get_rightChild(), tree.get_value()) && getResult(tree.get_leftChild(), tree.get_value());
+			return getResult(tree.get_rightChild(), muxVals) && getResult(tree.get_leftChild(), muxVals);
 		else if (tree.get_value() == "OR")
-			return getResult(tree.get_rightChild(), tree.get_value()) || getResult(tree.get_leftChild(), tree.get_value());
+			return getResult(tree.get_rightChild(), muxVals) || getResult(tree.get_leftChild(), muxVals);
 		else if (tree.get_value() == "NOT")
-			return !getResult(tree.get_leftChild(), tree.get_value());
+			return !getResult(tree.get_leftChild(), muxVals);
 		else{
-			if (getResult(tree.get_leftChild(), tree.get_value()))
-				return getResult(tree.get_centerChild(), tree.get_value());
+			if (getResult(tree.get_leftChild(), muxVals))
+				return getResult(tree.get_centerChild(), muxVals);
 			else
-				return getResult(tree.get_rightChild(), tree.get_value());
+				return getResult(tree.get_rightChild(), muxVals);
 		}
 	}
 	
 	private boolean getBinaryValue(String muxVals, String terminal){
-		if (muxVals == "A0")
-			return terminal.charAt(0) == '0' ? false : true;
-		else if (muxVals == "A1")
-			return terminal.charAt(1) == '0' ? false : true;
-		else if (muxVals == "D0")
-			return terminal.charAt(2) == '0' ? false : true;
-		else if (muxVals == "D1")
-			return terminal.charAt(3) == '0' ? false : true;
-		else if (muxVals == "D2")
-			return terminal.charAt(4) == '0' ? false : true;
-		else 
-			return terminal.charAt(5) == '0' ? false : true;
+		if (terminal.equals("A0"))
+			return muxVals.charAt(0) == '0' ? false : true;
+		else if (terminal.equals("A1"))
+			return muxVals.charAt(1) == '0' ? false : true;
+		else if (terminal.equals("D0"))
+			return muxVals.charAt(2) == '0' ? false : true;
+		else if (terminal.equals("D1"))
+			return muxVals.charAt(3) == '0' ? false : true;
+		else if (terminal.equals("D2"))
+			return muxVals.charAt(4) == '0' ? false : true;
+		else if (terminal.equals("D3"))
+			return muxVals.charAt(5) == '0' ? false : true;
+		else
+			return false;
 	}
 	/**
 	 * Calculate the phenotype.
@@ -199,7 +201,7 @@ public class Chromosome {
 		chromosome.setAggregateSocore(_aggregateSocore);
 		chromosome.setAptitude(_aptitude);
 		chromosome.setScore(_score);
-		chromosome.setGens(_gens = cloneGen(_gens, null));
+		chromosome.setGens(cloneGen(_gens, null));
 		
 		return chromosome;
 	}
@@ -208,9 +210,11 @@ public class Chromosome {
 		Tree clone = new Tree(father, src.get_depth(), src.is_isRoot(), src.is_isLeaf(), src.get_position());
 		clone.set_nodesNumber(src.get_nodesNumber());
 		if (!src.is_isLeaf()){
-			clone.set_rightChild(cloneGen(src.get_rightChild(), clone));
 			clone.set_leftChild(cloneGen(src.get_leftChild(), clone));
-			clone.set_centerChild(cloneGen(src.get_centerChild(), clone));
+			if (clone.get_rightChild() != null)
+				clone.set_rightChild(cloneGen(src.get_rightChild(), clone));
+			if (clone.get_centerChild() !=null)
+				clone.set_centerChild(cloneGen(src.get_centerChild(), clone));
 		}
 		
 		return clone;
@@ -274,12 +278,13 @@ public class Chromosome {
 					getInOrder(inOrder, tree.get_rightChild());
 			}
 			else{
-				//added the current father
-				inOrder.add(tree);
-				
 				//Added the left soon
 				if (tree.get_leftChild() != null)
 					getInOrder(inOrder, tree.get_leftChild());
+				
+				//added the current father
+				inOrder.add(tree);
+				
 				//Added the center soon
 				if (tree.get_centerChild() != null)
 					getInOrder(inOrder, tree.get_centerChild());
