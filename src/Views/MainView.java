@@ -112,6 +112,11 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		or.setSelected(true);
 		iff.setSelected(true);
 		not.setSelected(true);
+		depthTF.setText("4");
+		operators.add("OR");
+		operators.add("AND");
+		operators.add("NOT");
+		operators.add("IF");
 
 		// define the legend position
 		chartP.addLegend("SOUTH");
