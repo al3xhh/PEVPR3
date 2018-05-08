@@ -122,7 +122,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		chartP.addLegend("SOUTH");
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setPreferredSize(new java.awt.Dimension(1600, 750));
+		setPreferredSize(new java.awt.Dimension(1400, 750));
 
 		jLabel1.setText("Population size:");
 
@@ -676,7 +676,6 @@ public class MainView extends javax.swing.JFrame implements Observer {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				resultsTA.setText(null);
 				resultsTA.setText(result.getPhenotype());
 				chartP.removeAllPlots();
 				chartP.addLinePlot("Absolute best", x, best);

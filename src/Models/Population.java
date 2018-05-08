@@ -293,12 +293,12 @@ public class Population {
 	
 	public Chromosome getBestChromosome() {
 		Chromosome ret = new Chromosome();
-		double best = Double.MAX_VALUE;
+		double best = -Double.MAX_VALUE;
 		double test;
 		
 		for(Chromosome c: _population) {
 			test = c.test();
-			if(test < best) {
+			if(test > best) {
 				ret = c.clone();
 				best = test;
 			}

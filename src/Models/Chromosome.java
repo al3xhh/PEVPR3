@@ -125,12 +125,17 @@ public class Chromosome {
 				hit++;
 		}
 		
-		return hit/64;
+		return hit / 64.0;
 	}
 	
 	private boolean getResult(Tree tree, String muxVals){
-		if (tree.is_isLeaf())
+		
+		if ((tree.get_centerChild() == null || tree.get_leftChild() == null || tree.get_rightChild() == null) && tree.get_value().equals("IF"))
+			System.err.println("asdkldasdlñaskdñas");
+		
+		if (tree.is_isLeaf()) {
 			return getBinaryValue(muxVals, tree.get_value());
+		}
 					
 		if (tree.get_value() == "AND")
 			return getResult(tree.get_rightChild(), muxVals) && getResult(tree.get_leftChild(), muxVals);
@@ -168,26 +173,26 @@ public class Chromosome {
 	 * @return chromosome phenotype.
 	 */
 	public String getPhenotype() {
-		String phenotipe = new String();
+		StringBuffer phenotipe = new StringBuffer();
 		getPhenotype(this._gens, phenotipe);	
 		
-		return phenotipe;
+		return phenotipe.toString();
 	}
 	
-	private void getPhenotype(Tree tree, String phenotipe){
+	private void getPhenotype(Tree tree, StringBuffer phenotipe) {
 		if (tree.is_isLeaf())
-			phenotipe += " " + tree.get_value() + " ";
+			phenotipe.append(" " + tree.get_value() + " ");
 		else{
-			phenotipe += "(" + tree.get_value();
+			phenotipe.append("(" + tree.get_value());
 			
 			getPhenotype(tree.get_leftChild(), phenotipe);
 			
 			if (tree.get_centerChild() != null)
 				getPhenotype(tree.get_centerChild(), phenotipe);
 			if (tree.get_rightChild() != null)
-				getPhenotype(tree.get_centerChild(), phenotipe);
+				getPhenotype(tree.get_rightChild(), phenotipe);
 			
-			phenotipe += ")";
+			phenotipe.append(")");
 		}
 		
 	}
@@ -208,12 +213,13 @@ public class Chromosome {
 	
 	public Tree cloneGen(Tree src, Tree father){
 		Tree clone = new Tree(father, src.get_depth(), src.is_isRoot(), src.is_isLeaf(), src.get_position());
+		clone.set_value(src.get_value());
 		clone.set_nodesNumber(src.get_nodesNumber());
 		if (!src.is_isLeaf()){
 			clone.set_leftChild(cloneGen(src.get_leftChild(), clone));
-			if (clone.get_rightChild() != null)
+			if (src.get_rightChild() != null)
 				clone.set_rightChild(cloneGen(src.get_rightChild(), clone));
-			if (clone.get_centerChild() !=null)
+			if (src.get_centerChild() !=null)
 				clone.set_centerChild(cloneGen(src.get_centerChild(), clone));
 		}
 		

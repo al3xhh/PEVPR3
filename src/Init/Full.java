@@ -20,6 +20,7 @@ public class Full implements InitTechnic {
 		if (depth < maxDepth) {
 			String function = functions.get(new Random().nextInt(functions.size()));
 			Tree childL = new Tree(node, depth + 1, false, false, 2);
+			node.set_value(function);
 			
 			get(maxDepth, depth + 1, terminations, functions, childL);
 			node.set_leftChild(childL);
@@ -34,9 +35,7 @@ public class Full implements InitTechnic {
 				Tree childC = new Tree(node, depth + 1, false, false, 1);
 				get(maxDepth, depth + 1, terminations, functions, childC);
 				node.set_centerChild(childC);
-			}
-			
-			node.set_value(function);
+			}			
 		} 
 		else {
 			node.set_isLeaf(true);

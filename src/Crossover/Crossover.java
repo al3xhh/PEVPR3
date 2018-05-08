@@ -29,6 +29,12 @@ public class Crossover implements CrossoverAlgorithm {
 			Tree nodeP1 = parent1.getRandomNode();
 			Tree nodeP2 = parent2.getRandomNode();
 			
+			while(nodeP1.is_isRoot())
+				nodeP1 = parent1.getRandomNode();
+			
+			while(nodeP2.is_isRoot())
+				nodeP2 = parent2.getRandomNode();
+			
 			if (nodeP1.get_position() == 0)
 				nodeP1.get_father().set_leftChild(nodeP2);
 			else if (nodeP1.get_position() == 1)
