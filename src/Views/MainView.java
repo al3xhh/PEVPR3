@@ -66,6 +66,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		jLabel15 = new javax.swing.JLabel();
 		selectionModeCB = new javax.swing.JComboBox<>();
 		jPanel1 = new javax.swing.JPanel();
+		jPanel7 = new javax.swing.JPanel();
 		jPanel4 = new javax.swing.JPanel();
 		jLabel5 = new javax.swing.JLabel();
 		crossoverTF = new javax.swing.JTextField();
@@ -95,16 +96,19 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		depthTF = new javax.swing.JTextField();
 		jLabel18 = new javax.swing.JLabel();
 		operators = new ArrayList<>();
+		jLabel19 = new javax.swing.JLabel();
+		weightTF = new javax.swing.JTextField();
 		
 		jLabel16.setText("Init technic");
 		jLabel17.setText("Max depth: ");
+		jLabel19.setText("Weight: ");
 
 		// DEFAULTS VALUES
 		populationSizeTF.setText("100");
-		generationNumberTF.setText("220");
-		crossoverTF.setText("0.75");
-		mutationTF.setText("0.2");
-		eliteTF.setText("0.75");
+		generationNumberTF.setText("400");
+		crossoverTF.setText("0.6");
+		mutationTF.setText("0.3");
+		eliteTF.setText("0.3");
 		heuristicTF.setText("0");
 		truncTF.setText("0");
 		tournamentTF.setText("5");
@@ -113,6 +117,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 		iff.setSelected(true);
 		not.setSelected(true);
 		depthTF.setText("4");
+		weightTF.setText("0.01");
 		operators.add("OR");
 		operators.add("AND");
 		operators.add("NOT");
@@ -250,6 +255,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 
 		jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Elite"));
 		jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Operators"));
+		jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Weight"));
 
 		eliteTF.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,6 +291,16 @@ public class MainView extends javax.swing.JFrame implements Observer {
 						.addGap(0, 0, Short.MAX_VALUE)
 						.addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(and).addComponent(or).addComponent(not).addComponent(iff))));
+		
+		javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+		jPanel7.setLayout(jPanel7Layout);
+		jPanel7Layout.setHorizontalGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel7Layout.createSequentialGroup().addContainerGap().addComponent(jLabel19).addComponent(weightTF)));
+		jPanel7Layout.setVerticalGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+						.addGap(0, 0, Short.MAX_VALUE)
+						.addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jLabel19).addComponent(weightTF))));
 
 		resetFieldsB.setText("Reset fields");
 		resetFieldsB.addActionListener(new ActionListener() {
@@ -293,13 +309,14 @@ public class MainView extends javax.swing.JFrame implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				// DEFAULTS VALUES
 				populationSizeTF.setText("100");
-				generationNumberTF.setText("220");
-				crossoverTF.setText("0.75");
-				mutationTF.setText("0.2");
-				eliteTF.setText("0.75");
+				generationNumberTF.setText("400");
+				crossoverTF.setText("0.6");
+				mutationTF.setText("0.3");
+				eliteTF.setText("0.3");
 				heuristicTF.setText("0");
 				truncTF.setText("0");
 				tournamentTF.setText("5");
+				weightTF.setText("0.01");
 			}
 		});
 
@@ -327,7 +344,8 @@ public class MainView extends javax.swing.JFrame implements Observer {
 								Double.parseDouble(mutationTF.getText()),
 								mutationInitModeCB.getSelectedItem().toString(),
 								Double.parseDouble(eliteTF.getText()),
-								operators);
+								operators,
+								Double.parseDouble(weightTF.getText()));
 					} catch (NumberFormatException e1) {
 						JOptionPane.showMessageDialog(null, "Munber format exception", "Error",
 								JOptionPane.ERROR_MESSAGE);
@@ -479,6 +497,10 @@ public class MainView extends javax.swing.JFrame implements Observer {
 										jPanel5, javax.swing.GroupLayout.Alignment.TRAILING,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE)
+								.addComponent(
+										jPanel7, javax.swing.GroupLayout.Alignment.TRAILING,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+										Short.MAX_VALUE)
 								.addGroup(layout.createSequentialGroup().addGap(8, 8, 8)
 										.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 												.addComponent(jLabel2).addComponent(jLabel3).addComponent(jLabel1)
@@ -558,6 +580,9 @@ public class MainView extends javax.swing.JFrame implements Observer {
 												javax.swing.GroupLayout.PREFERRED_SIZE)
 										.addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addComponent(chartP, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -635,6 +660,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JLabel jLabel16;
 	private javax.swing.JLabel jLabel17;
 	private javax.swing.JLabel jLabel18;
+	private javax.swing.JLabel jLabel19;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel5;
@@ -652,6 +678,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JCheckBox iff;
 	private Plot2DPanel chartP;
 	private javax.swing.JPanel jPanel6;
+	private javax.swing.JPanel jPanel7;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextArea resultsTA;
 	private javax.swing.JTextField populationSizeTF;
@@ -664,6 +691,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 	private javax.swing.JTextField mutationTF;
 	private javax.swing.JTextField eliteTF;
 	private javax.swing.JTextField depthTF;
+	private javax.swing.JTextField weightTF;
 	private ArrayList<String> operators;
 	// End of variables declaration//GEN-END:variables
 

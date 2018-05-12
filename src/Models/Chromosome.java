@@ -47,6 +47,8 @@ public class Chromosome {
 	
 	private int _maxDepth;
 	
+	private double _weight;
+	
 	private static ArrayList<String> _terminals = new ArrayList<String>() {{
 		add("A0");
 		add("A1");
@@ -60,12 +62,13 @@ public class Chromosome {
 	
 	private static InitTechnic _init;
 	
-	public Chromosome(MutationAlgorithm mutation, int maxDepth, ArrayList<String>functions, InitTechnic init) {
+	public Chromosome(MutationAlgorithm mutation, int maxDepth, ArrayList<String>functions, InitTechnic init, double weight) {
 		_mutation = mutation;
 		_functions = functions;
 		_maxDepth = maxDepth;
 		_init = init;
  		_gens = _init.init(_maxDepth, _terminals, _functions);
+ 		_weight = weight;
 	}
 	
 	public int get_maxDepth() {
@@ -108,7 +111,7 @@ public class Chromosome {
 	 * @return new chromosome.
 	 */
 	public Chromosome getChild() {
-		return new Chromosome(_mutation, _maxDepth, _functions, _init);
+		return new Chromosome(_mutation, _maxDepth, _functions, _init, _weight);
 	}
 	
 	/**
@@ -125,7 +128,7 @@ public class Chromosome {
 				hit++;
 		}
 		
-		return (1 - hit / 64.0) + 0.01 * _gens.get_nodesNumber();
+		return (1 - hit / 64.0) + _weight * _gens.get_nodesNumber();
 	}
 	
 	public int hits(){
@@ -213,7 +216,7 @@ public class Chromosome {
 	 * Clone the chromosome.
 	 */
 	public Chromosome clone() {
-		Chromosome chromosome = new Chromosome(_mutation, _maxDepth, _functions, _init);
+		Chromosome chromosome = new Chromosome(_mutation, _maxDepth, _functions, _init, _weight);
 		
 		chromosome.setAggregateSocore(_aggregateSocore);
 		chromosome.setAptitude(_aptitude);

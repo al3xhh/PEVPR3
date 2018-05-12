@@ -60,12 +60,12 @@ public class MainControler {
 	 * @param truncation percentage of truncation selection.
 	 */
 	public void run(int populationSize, int generationNumber, String selection, int maxDepth, double truncation, int tournamentN, double cross, String initTechnic, 
-					String mutationAlgorithm, double mutation, String mutationInitTechnic, double elitism, ArrayList<String> operators) {
+					String mutationAlgorithm, double mutation, String mutationInitTechnic, double elitism, ArrayList<String> operators, double weight) {
 		
 		Chromosome []chromosomes = new Chromosome[populationSize];
 		
 		for(int i = 0; i < populationSize; i++)
-			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm), maxDepth, operators, InitTechnicFactory.getInitTechnic(initTechnic));
+			chromosomes[i] = new Chromosome(MutationFactory.getMutationAlgorithm(mutationAlgorithm), maxDepth, operators, InitTechnicFactory.getInitTechnic(initTechnic), weight);
 		
 		Population population = new Population(populationSize, generationNumber, elitism, chromosomes, "min");
 		SelectionAlgorithm selectionAlgorithm = SelectionFactory.getSelectionAlgorithm(selection, truncation, tournamentN);
