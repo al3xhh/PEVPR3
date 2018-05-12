@@ -42,12 +42,16 @@ public class Crossover implements CrossoverAlgorithm {
 			else
 				nodeP1.get_father().set_rightChild(nodeP2);
 			
+			nodeP1.set_nodesNumber(nodeP2.get_nodesNumber() - nodeP1.get_nodesNumber());
+			
 			if (nodeP2.get_position() == 0)
 				nodeP2.get_father().set_leftChild(nodeP1);
 			else if (nodeP2.get_position() == 1)
 				nodeP2.get_father().set_centerChild(nodeP1);
 			else
-				nodeP1.get_father().set_rightChild(nodeP1);
+				nodeP2.get_father().set_rightChild(nodeP1);
+			
+			nodeP2.set_nodesNumber(nodeP1.get_nodesNumber() - nodeP2.get_nodesNumber());
 			
 			parent1.setAptitude(parent1.test());
 			parent2.setAptitude(parent2.test());

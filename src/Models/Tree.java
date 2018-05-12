@@ -20,6 +20,7 @@ public class Tree {
 		_isRoot = isRoot;
 		_isLeaf = isLeaf;
 		_position = position;
+		_nodesNumber = -1;
 	}
 
 	public Tree get_leftChild() {

@@ -125,7 +125,19 @@ public class Chromosome {
 				hit++;
 		}
 		
-		return hit / 64.0;
+		return (1 - hit / 64.0) + 0.01 * _gens.get_nodesNumber();
+	}
+	
+	public int hits(){
+		Multiplexor mux = new Multiplexor();
+		int hit = 0;
+		
+		for (int i = 0; i < Utils.combinations.length; i++) {
+			if (mux.getOutput(Utils.combinations[i].substring(0, 2), Utils.combinations[i].substring(2, 6)) == getResult(this._gens, Utils.combinations[i]))
+				hit++;
+		}
+		
+		return hit;
 	}
 	
 	private boolean getResult(Tree tree, String muxVals){

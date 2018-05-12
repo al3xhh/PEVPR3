@@ -676,7 +676,7 @@ public class MainView extends javax.swing.JFrame implements Observer {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				resultsTA.setText(result.getPhenotype());
+				resultsTA.setText(result.getPhenotype() + "\n Hits: " + result.hits() + "/64");
 				chartP.removeAllPlots();
 				chartP.addLinePlot("Absolute best", x, best);
 				chartP.addLinePlot("Generation best", x, bestGeneration);
