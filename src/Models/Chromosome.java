@@ -67,7 +67,7 @@ public class Chromosome {
 		_functions = functions;
 		_maxDepth = maxDepth;
 		_init = init;
- 		_gens = _init.init(_maxDepth, _terminals, _functions);
+ 		_gens = _init.init(_maxDepth, 1, _terminals, _functions);
  		_weight = weight;
 	}
 	

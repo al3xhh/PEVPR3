@@ -8,6 +8,6 @@ public class InitTechnicFactory {
 		else if (initTechnic.equals("Grow"))
 			return new Grow();
 		else
-			return null;//new Full();
+			return new RampedAndHalf();
 	}
 }

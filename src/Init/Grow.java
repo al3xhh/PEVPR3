@@ -8,10 +8,10 @@ import Models.Tree;
 public class Grow implements InitTechnic {
 
 	@Override
-	public Tree init(int maxDepth, ArrayList<String> terminals, ArrayList<String> functions) {
-		Tree tree = new Tree(null, 1, true, false, -1);
+	public Tree init(int maxDepth, int depth, ArrayList<String> terminals, ArrayList<String> functions) {
+		Tree tree = new Tree(null, depth, true, false, -1);
 		
-		get(maxDepth, 1, terminals, functions, tree);
+		get(maxDepth, depth, terminals, functions, tree);
 		
 		return tree;
 	}
