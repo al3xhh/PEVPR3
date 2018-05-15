@@ -145,9 +145,6 @@ public class Chromosome {
 	
 	private boolean getResult(Tree tree, String muxVals){
 		
-		if ((tree.get_centerChild() == null || tree.get_leftChild() == null || tree.get_rightChild() == null) && tree.get_value().equals("IF"))
-			System.err.println("asdkldasdlñaskdñas");
-		
 		if (tree.is_isLeaf()) {
 			return getBinaryValue(muxVals, tree.get_value());
 		}
